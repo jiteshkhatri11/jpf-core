@@ -240,7 +240,12 @@ public class SparseIntVector implements Cloneable {
     return count;
   }
   
-  public void set(int idx, int val) {
+public void set(int idx, int val) {
+    if (idx == MIN_VALUE) {
+      throw new IllegalArgumentException(
+          "Integer.MIN_VALUE is not a supported index");
+    }
+
     int code = mix(idx);
     int pos = code & mask;
     int delta = (code >> (pow - 1)) | 1; // must be odd!
