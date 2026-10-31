@@ -63,4 +63,31 @@ public class IdentityArrayObjectSetTest extends TestJPF {
     assertTrue(  s.isEmpty());
     System.out.println(s);
   }
+
+  @Test
+  public void testIteratorRemoveFromFullArray() {
+    IdentityArrayObjectSet<String> set = new IdentityArrayObjectSet<String>(3);
+
+    String a = new String("a");
+    String b = new String("b");
+    String c = new String("c");
+
+    set.add(a);
+    set.add(b);
+    set.add(c);
+
+    java.util.Iterator<String> it = set.iterator();
+
+    assertTrue(it.next() == a);
+    it.remove();
+
+    assertTrue(set.size() == 2);
+    assertFalse(set.contains(a));
+    assertTrue(set.contains(b));
+    assertTrue(set.contains(c));
+
+    assertTrue(it.next() == b);
+    assertTrue(it.next() == c);
+    assertFalse(it.hasNext());
+  }
 }
